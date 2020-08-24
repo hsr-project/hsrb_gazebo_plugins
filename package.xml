@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<package>
+  <name>hsrb_gazebo_plugins</name>
+  <version>0.22.0</version>
+  <description>Gazebo plugins for HSR-B simulation model</description>
+
+  <maintainer email="xr-hsr-support@mail.toyota.co.jp">HSR Support</maintainer>
+
+  <license>BSD 3-clause Clear License</license>
+  <license>Apache 2.0</license>
+
+  <author>Akiyoshi Ochiai</author>
+  <author>Hiromichi Nakashima</author>
+  <author>Kazuto Murase</author>
+  <author>Keisuke Takeshita</author>
+  <author>Koji Terada</author>
+  <author>Koki Kataoka</author>
+  <author>Minori Higuchi</author>
+  <author>Takafumi Mizuno</author>
+  <author>Tamaki Nishino</author>
+  <author>Takuya Ikeda</author>
+  <author>Yosuke Matsusaka</author>
+  <author>Yusuke Ota</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>gazebo</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>actionlib</build_depend>
+  <build_depend>gazebo_ros</build_depend>
+  <build_depend>gazebo_ros_control</build_depend>
+  <build_depend>gazebo_plugins</build_depend>
+  <build_depend>angles</build_depend>
+  <build_depend>control_toolbox</build_depend>
+  <build_depend>controller_manager</build_depend>
+  <build_depend>dynamic_reconfigure</build_depend>
+  <build_depend>hardware_interface</build_depend>
+  <build_depend>transmission_interface</build_depend>
+  <build_depend>joint_limits_interface</build_depend>
+  <build_depend>urdf</build_depend>
+  <build_depend>trajectory_msgs</build_depend>
+  <build_depend>control_msgs</build_depend>
+  <build_depend>tmc_control_msgs</build_depend>
+  <build_depend>tmc_suction</build_depend>
+  <build_depend>camera_info_manager</build_depend>
+  <build_depend>image_transport</build_depend>
+
+  <run_depend>gazebo</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>actionlib</run_depend>
+  <run_depend>control_toolbox</run_depend>
+  <run_depend>gazebo_ros</run_depend>
+  <run_depend>gazebo_ros_control</run_depend>
+  <run_depend>gazebo_plugins</run_depend>
+  <run_depend>controller_manager</run_depend>
+  <run_depend>transmission_interface</run_depend>
+  <run_depend>hardware_interface</run_depend>
+  <run_depend>joint_limits_interface</run_depend>
+  <run_depend>urdf</run_depend>
+  <run_depend>dynamic_reconfigure</run_depend>
+  <run_depend>trajectory_msgs</run_depend>
+  <run_depend>control_msgs</run_depend>
+  <run_depend>tmc_control_msgs</run_depend>
+  <run_depend>tmc_suction</run_depend>
+  <run_depend>camera_info_manager</run_depend>
+  <run_depend>image_transport</run_depend>
+
+  <test_depend>rosunit</test_depend>
+  <test_depend>rostest</test_depend>
+  <test_depend>joint_state_publisher</test_depend>
+  <test_depend>xacro</test_depend>
+  <test_depend>hsrb_description</test_depend>
+  <test_depend>hsrb_gripper_controller</test_depend>
+
+  <export>
+  </export>
+</package>
