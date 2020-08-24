@@ -22,4 +22,5 @@ HSR-B 専用Gazeboプラグイン（共有ライブラリ）置き場。
 LICENSE
 +++++++++
 
-This package includes software which has different licenses.
+This software except thirdparty directory is released under the BSD 3-Clause Clear License, see LICENSE.txt.
+The software in the thirdparty directory is released under the Apache License, Version 2.0, see thirdparty/LICENSE.
