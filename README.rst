@@ -1,23 +1,23 @@
 Overview
 ++++++++++++++++++++
 
-HSR-B 専用Gazeboプラグイン（共有ライブラリ）置き場。
+This is the place for the dedicated HSR-B Gazebo plugins (shared libraries).
 
 
-プラグイン
+Plugins
 +++++++++
 
 * gazebo_hrh_gripper
 
-   HSR-B 用グリッパを動かすためのプラグイン。
+   This is the plugin for moving the HSR-B gripper.
 
 * hsrb_grasp_hack
 
-   HSR-Bの吸引機構をシミュレータ上で実現するためのプラグイン。
+   This is the plugin that implements the HSR-B's suction function within the simulator.
 
 * hsrb_bumper
 
-   バンパセンサをシミュレータ上で実現するためのプラグイン。
+   This is the plugin that implements the bumper sensors within the simulator.
 
 LICENSE
 +++++++++
