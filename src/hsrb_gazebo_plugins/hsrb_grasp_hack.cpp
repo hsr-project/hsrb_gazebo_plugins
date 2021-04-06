@@ -51,6 +51,8 @@ const double kPoseDiffMaxThreshold = 1e-2;
 const double kMaxAttachWeight = 1.2;
 /// springに力がかかっていないと判定する偏差の閾値[rad]
 const double kSpringNoForce = 0.05;
+/// springに力がかかり続けていないと判定する同一の把持中の最大の力との比率
+const double kSpringNoForceRatio = 0.5;
 /// 位置偏差のbuffer数
 const uint32_t kNumDiffBuffer = 2;
 }  // anonymous namespace
@@ -63,6 +65,8 @@ HsrbGraspHack::HsrbGraspHack()
     : zero_count_(0),
       pos_count_(0),
       diff_index_(0),
+      spring_max_force_l_(0.0),
+      spring_max_force_r_(0.0),
       attached_(false),
       is_suction_on_(false) {
   diffs_.resize(kNumDiffBuffer);
@@ -111,6 +115,11 @@ void HsrbGraspHack::Load(gazebo::physics::ModelPtr model, sdf::ElementPtr sdf) {
     spring_no_force_ = grasp_check->Get<double>("spring_no_force");
   } else {
     spring_no_force_ = kSpringNoForce;
+  }
+  if (grasp_check->HasElement("spring_no_force_ratio")) {
+    spring_no_force_ratio_ = grasp_check->Get<double>("spring_no_force_ratio");
+  } else {
+    spring_no_force_ratio_ = kSpringNoForceRatio;
   }
 
   sdf::ElementPtr palm_link_elem = sdf->GetElement("palm_link");
@@ -214,7 +223,7 @@ void HsrbGraspHack::OnUpdate() {
 
   // @todo: should package the decision into a function
   if ((contacts_.size() >= min_contact_count_) &&
-      (IsSpringLoaded() || is_suction_on_)) {
+      ((IsSpringLoaded() && IsSpringLoadedFromRatio()) || is_suction_on_)) {
     pos_count_++;
     zero_count_ = 0;
   } else {
@@ -224,6 +233,8 @@ void HsrbGraspHack::OnUpdate() {
 
   if (pos_count_ > attach_steps_ && !attached_) {
     HandleAttach();
+    spring_max_force_l_ = 0.0;
+    spring_max_force_r_ = 0.0;
   } else if (zero_count_ > detach_steps_ && attached_) {
     HandleDetach();
   }
@@ -248,6 +259,21 @@ bool HsrbGraspHack::IsSpringLoaded() const {
   return ((fabs(left_spring_->GetAngle(0).Radian()) > spring_no_force_) ||
           (fabs(right_spring_->GetAngle(0).Radian()) > spring_no_force_));
 #endif
+}
+
+// check spring load from ratio.
+bool HsrbGraspHack::IsSpringLoadedFromRatio() {
+#if GAZEBO_MAJOR_VERSION >= 8
+  double force_l_ = fabs(left_spring_->Position(0));
+  double force_r_ = fabs(right_spring_->Position(0));
+#else
+  double force_l_ = fabs(left_spring_->GetAngle(0).Radian());
+  double force_r_ = fabs(right_spring_->GetAngle(0).Radian());
+#endif
+  spring_max_force_l_ = fmax(spring_max_force_l_, force_l_);
+  spring_max_force_r_ = fmax(spring_max_force_r_, force_r_);
+  return ((force_l_ > spring_max_force_l_ * spring_no_force_ratio_) ||
+          (force_r_ > spring_max_force_r_ * spring_no_force_ratio_));
 }
 
 /// attach処理

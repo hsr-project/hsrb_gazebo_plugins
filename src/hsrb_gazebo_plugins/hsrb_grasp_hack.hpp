@@ -87,6 +87,8 @@ class HsrbGraspHack : public gazebo::ModelPlugin {
   void ResetDiffs();
   /// 力がかかっているか判定
   bool IsSpringLoaded() const;
+  /// 力がかかり続けているかを最大の力との比率で判定する
+  bool IsSpringLoadedFromRatio();
 
   /// ROS関係の初期化
   /// @param [in] robot_namespace ネームスペース
@@ -126,6 +128,9 @@ class HsrbGraspHack : public gazebo::ModelPlugin {
   int detach_steps_;
   double attach_weight_;
   double spring_no_force_;
+  double spring_no_force_ratio_;
+  double spring_max_force_l_;
+  double spring_max_force_r_;
   std::string name_;
   gazebo::transport::SubscriberPtr contact_sub_;
 
